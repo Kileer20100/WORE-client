@@ -27,7 +27,7 @@ function attachFile() {
 }
 
 // Function to send a message
-function sendMessage() {
+ async function sendMessage() {
   if (!message.value) return; // Do nothing if input is empty
 
   // Add message to the array
@@ -37,7 +37,10 @@ function sendMessage() {
     time: new Date().toLocaleTimeString()
   });
 
-  message.value = ""; // Clear the input field
+  const _ = await invoke("send_message", {
+    text: message.value
+  });
+  message.value = "";
 
   // Scroll to the bottom after DOM update
   nextTick(() => {
